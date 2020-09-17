@@ -90,7 +90,7 @@ def variancia(lista):
 
     lista_desvios = [(numero - media) ** 2 for numero in lista]
 
-    variance = soma_lista(lista_desvios) / (len(lista_desvios)-1)
+    variance = soma_lista(lista_desvios) / (len(lista_desvios) - 1)
 
     return variance
 
@@ -127,7 +127,7 @@ def cova(lista1, lista2):
         cova_i = (lista1[i] - media_lista1) * (lista2[i] - media_lista2)
         cova_list.append(cova_i)
 
-    covariance = soma_lista(cova_list) (len(cova_list)-1)
+    covariance = soma_lista(cova_list)(len(cova_list) - 1)
 
     return covariance
 
@@ -162,7 +162,7 @@ def beta(lista_x, lista_y):
     Returns:
         float: valor do coeficiente angular da reta de regressão
     """
-    
+
     return cova(lista_x, lista_y) / variancia(lista_x)
 
 
@@ -176,25 +176,24 @@ def alpha(lista_x, lista_y):
         float: valor de intercecção da reta de regressão
     """
     angular_coef = beta(lista_x, lista_y)
-    print(angular_coef)
     intercepcao = media_lista(lista_y) - angular_coef * (media_lista(lista_x))
+
     return intercepcao
 
 
 def predict(lista_x, angular_coef, intercepcao):
-    """[summary]
+    """Função de predição dos valores de y a partir da 
+    lista de elementos em x
 
     Args:
-        lista_x ([type]): [description]
-        angular_coef ([type]): [description]
-        intercepcao ([type]): [description]
+        lista_x (list): lista dos elementos de x
+        angular_coef (float): coeficiente angular da reta de regressão
+        intercepcao (float): intercepção da reta de regressão
 
     Returns:
-        [type]: [description]
+        list: lista com os elementos preditos a partir de x
     """
 
-    predito = []
-    for elemento in lista_x:
-        predito.append(elemento * angular_coef + intercepcao)
+    predito = [(angular_coef * x + intercepcao) for x in lista_x]
 
     return predito
