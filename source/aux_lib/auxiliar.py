@@ -25,3 +25,32 @@ def leitura(arquivo):
                 dic_columns[headers[i]].append(float(columns[i]))
 
     return dic_columns
+
+
+def core(arquivo):
+
+    # leitura do arquivo
+    dataset = leitura(arquivo)
+
+    # tamanho das listas
+    n_data_rows = len(dataset["RM"])
+
+    # Predizer valores de MEDV a partir do RM
+    # 70% do dataset para pegar os coeficientes
+    limite_rows = round(n_data_rows * 0.7)
+    angular_coef, intercepcao = fit(dataset["RM"][:limite_rows], dataset["MEDV"][:limite_rows])
+
+    # Predizer os valores para os outros 30%
+    predito = predict(dataset["RM"][limite_rows:], angular_coef, intercepcao)
+
+    print(
+        angular_coef,
+        intercepcao,
+        dataset["RM"][limite_rows - 1],
+        dataset["MEDV"][limite_rows - 1],
+        predito[0],
+    )
+    # verifica o erro dos valores preditos
+    erro_medio_quad = rmse(predito, dataset["MEDV"][limite_rows:])
+
+    return erro_medio_quad

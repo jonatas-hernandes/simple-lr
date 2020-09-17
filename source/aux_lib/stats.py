@@ -181,6 +181,23 @@ def alpha(lista_x, lista_y):
     return intercepcao
 
 
+def fit(lista_x, lista_y):
+    """Retorna os coeficientes da regressão linear entre as duas listas
+
+    Args:
+        lista_x (list): lista de valores de x
+        lista_y (list): lista de valores de y
+
+    Returns:
+        float: coeficientes da regressão
+    """
+
+    angular_coef = beta(lista_x, lista_y)
+    intercepcao = alpha(lista_x, lista_y)
+
+    return angular_coef, intercepcao
+
+
 def predict(lista_x, angular_coef, intercepcao):
     """Função de predição dos valores de y a partir da 
     lista de elementos em x
